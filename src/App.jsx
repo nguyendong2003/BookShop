@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import {
   createBrowserRouter,
+  Outlet,
   RouterProvider,
 } from "react-router-dom";
 import BookPage from './pages/book';
 import ContactPage from './pages/contact';
 import LoginPage from './pages/login';
-import { Outlet } from "react-router-dom";
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Home from './components/Home';
