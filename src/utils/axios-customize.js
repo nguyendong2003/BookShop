@@ -4,7 +4,7 @@ const baseUrl = import.meta.env.VITE_BACKEND_URL;
 
 const instance = axios.create({
     baseURL: baseUrl,
-    withCredentials: true,
+    withCredentials: true,  // tự động lưu refresh token vào cookies
 });
 
 // Add a request interceptor
