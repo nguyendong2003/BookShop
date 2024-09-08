@@ -1,13 +1,31 @@
-import { Button, Divider, Form, Input } from 'antd';
-import { Link } from 'react-router-dom';
+import { Button, Divider, Form, Input, message, notification } from 'antd';
+import { Link, useNavigate } from 'react-router-dom';
+import { callLogin } from '../../services/api';
 import './login.scss';
+import { useState } from 'react';
 
 const LoginPage = () => {
+    const navigate = useNavigate();
+    const [isSubmit, setIsSubmit] = useState(false);
 
-    const onFinish = (values) => {
-        console.log('Success:', values);
+    const onFinish = async (values) => {
+
+        const { username, password } = values;
+        setIsSubmit(true);
+        const res = await callLogin(username, password);
+        setIsSubmit(false);
+        if (res?.data) {
+            message.success('Đăng nhập tài khoản thành công!');
+            navigate('/')
+        } else {
+            notification.error({
+                message: "Có lỗi xảy ra",
+                description:
+                    res.message && Array.isArray(res.message) ? res.message[0] : res.message,
+                duration: 5
+            })
+        }
     };
-
 
     return (
         <div className="login-page">
