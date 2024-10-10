@@ -53,10 +53,9 @@ export default function App() {
   const isAuthenticated = useSelector(state => state.account.isAuthenticated)
 
   const getAccount = async () => {
-    if (
-      window.location.pathname === '/login'
+    // Khi đang ở trang login, register thì không cần fetch account (để tránh gọi api không cần thiết)
+    if (window.location.pathname === '/login'
       || window.location.pathname === '/register'
-      || window.location.pathname === '/'
     )
       return;
 
@@ -126,6 +125,7 @@ export default function App() {
   return (
     <>
       {
+        // Nếu đã xác thực hoặc đang ở trang login, register, home thì render router, ngược lại thì render loading
         isAuthenticated === true
           || window.location.pathname === '/login'
           || window.location.pathname === '/register'

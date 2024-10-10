@@ -5,4 +5,8 @@
     => Xem các component của thư viện thì bấm vào Demo page của link trên -> 
         https://www.davidhu.io/react-spinners/
         https://www.davidhu.io/react-spinners/storybook/?path=/docs/barloader--docs
+
+    
+    # Refresh token
+    - refresh token lưu ở cookies, khi nó bị hết hạn thì trình duyệt tự xóa luôn cookies chứa refresh token đó
 */

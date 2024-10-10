@@ -5,10 +5,10 @@ const initialState = {
     user: {
         email: "",
         phone: "",
-        "fullName": "",
-        "role": "",
-        "avatar": "",
-        "id": ""
+        fullName: "",
+        role: "",
+        avatar: "",
+        id: ""
     }
 };
 

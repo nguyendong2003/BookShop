@@ -4,7 +4,7 @@ const baseUrl = import.meta.env.VITE_BACKEND_URL;
 
 const instance = axios.create({
     baseURL: baseUrl,
-    withCredentials: true,  // tự động lưu refresh token vào cookies
+    withCredentials: true,  // phải có dòng này thì trình duyệt mới tự động lưu refresh token vào cookies
 });
 
 instance.defaults.headers.common = { 'Authorization': `Bearer ${localStorage.getItem('access_token')}` }
