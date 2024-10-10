@@ -31,26 +31,9 @@ const Layout = () => {
   )
 }
 
-// const LayoutAdmin = () => {
-//   const isAdminRoute = window.location.pathname.startsWith('/admin');
-//   const user = useSelector(state => state.account.user);
-//   const userRole = user.role;
-
-//   return (
-//     <div className='layout-app'>
-//       {isAdminRoute && userRole === 'ADMIN' && <Header />}
-//       {/* <Header /> */}
-//       <Outlet />
-//       {/* <Footer /> */}
-//       {isAdminRoute && userRole === 'ADMIN' && <Footer />}
-
-//     </div>
-//   )
-// }
-
 export default function App() {
   const dispatch = useDispatch();
-  const isAuthenticated = useSelector(state => state.account.isAuthenticated)
+  const isLoading = useSelector(state => state.account.isLoading)
 
   const getAccount = async () => {
     // Khi đang ở trang login, register thì không cần fetch account (để tránh gọi api không cần thiết)
@@ -126,7 +109,7 @@ export default function App() {
     <>
       {
         // Nếu đã xác thực hoặc đang ở trang login, register, home thì render router, ngược lại thì render loading
-        isAuthenticated === true
+        isLoading === true
           || window.location.pathname === '/login'
           || window.location.pathname === '/register'
           || window.location.pathname === '/'

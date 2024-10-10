@@ -9,4 +9,5 @@
     
     # Refresh token
     - refresh token lưu ở cookies, khi nó bị hết hạn thì trình duyệt tự xóa luôn cookies chứa refresh token đó
+    - Khi logout thì xóa access_token ở localStorage (xóa ở FE), còn cookies thì đã bị xóa ở BE
 */
