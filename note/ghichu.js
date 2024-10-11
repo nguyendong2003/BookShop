@@ -17,8 +17,18 @@
     # API filter:
     - Bên BE dùng thư viện để lấy query từ URL: https://www.npmjs.com/package/api-query-params
     - http://localhost:8080/api/v1/user?current=1&pageSize=5&fullName=I'm Admin
-    => fullName=I'm Admin    => tên fullName phải đúng chính xác bằng I'm Admin
+        => fullName=I'm Admin    => tên fullName phải đúng chính xác bằng I'm Admin
 
     - http://localhost:8080/api/v1/user?current=1&pageSize=5&fullName=/I'm Adm/i
-    => fullName=/I'm Adm/i    => tìm kiếm tất cả fullName có chứa I'm Adm (không phân biệt hoa thường)
+        => fullName=/I'm Adm/i    => tìm kiếm tất cả fullName có chứa I'm Adm (không phân biệt hoa thường)
+
+    # API Sorter:
+    - Quy tắc truyền filter: https://www.npmjs.com/package/api-query-params
+    - Mặc định, sort theo ascending/descending, tuy nhiên, ở nosql, có thể dùng dấu - (minus)
+    - Ví dụ:
+        http://localhost:8080/api/v1/user?current=1&pageSize=2&sort=fullName
+            => sort kết quả theo fullName (asc)
+        http://localhost:8080/api/v1/user?current=1&pageSize=2&sort=-fullName
+            => sort kết quả theo fullName (desc)
+
 */

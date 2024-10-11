@@ -3,7 +3,7 @@ import { Table, Row, Col, Popconfirm, Button, message, notification, Divider } f
 import InputSearch from './InputSearch';
 import { callDeleteUser, callFetchListUser } from '../../../services/api';
 import { CloudDownloadOutlined, CloudUploadOutlined, DeleteTwoTone, ExportOutlined, ImportOutlined, PlusOutlined, ReloadOutlined } from '@ant-design/icons';
-// https://stackblitz.com/run?file=demo.tsx
+
 const UserTable = () => {
     const [listUser, setListUser] = useState([]);
     const [current, setCurrent] = useState(1);
@@ -11,21 +11,24 @@ const UserTable = () => {
     const [total, setTotal] = useState(0);
 
     const [isLoading, setIsLoading] = useState(false);
+    const [filter, setFilter] = useState("");
+    const [sortQuery, setSortQuery] = useState("");
 
-    // useEffect(() => {
-    //     fetchUser();
-    // }, []);
 
     useEffect(() => {
         fetchUser();
-    }, [current, pageSize]);
+    }, [current, pageSize, filter, sortQuery]);
 
-    const fetchUser = async (searchFilter) => {
+    const fetchUser = async () => {
         setIsLoading(true)
         let query = `current=${current}&pageSize=${pageSize}`;
-        if (searchFilter) {
-            query += `&${searchFilter}`
+        if (filter) {
+            query += `&${filter}`;
         }
+        if (sortQuery) {
+            query += `&${sortQuery}`;
+        }
+
         const res = await callFetchListUser(query);
         if (res && res.data) {
             setListUser(res.data.result);
@@ -83,7 +86,10 @@ const UserTable = () => {
             setPageSize(pagination.pageSize)
             setCurrent(1);
         }
-        console.log('params', pagination, filters, sorter, extra);
+        if (sorter && sorter.field) {
+            const q = sorter.order === 'ascend' ? `sort=${sorter.field}` : `sort=-${sorter.field}`;
+            setSortQuery(q);
+        }
     };
 
     const handleDeleteUser = async (userId) => {
@@ -120,7 +126,10 @@ const UserTable = () => {
                         icon={<PlusOutlined />}
                         type="primary"
                     >Thêm mới</Button>
-                    <Button type='ghost' onClick={() => fetchUser()}>
+                    <Button type='ghost' onClick={() => {
+                        setFilter("");
+                        setSortQuery("")
+                    }}>
                         <ReloadOutlined />
                     </Button>
 
@@ -131,14 +140,17 @@ const UserTable = () => {
     }
 
     const handleSearch = (query) => {
-        fetchUser(query)
+        setFilter(query);
     }
 
     return (
         <>
             <Row gutter={[20, 20]}>
                 <Col span={24}>
-                    <InputSearch handleSearch={handleSearch} />
+                    <InputSearch
+                        handleSearch={handleSearch}
+                        setFilter={setFilter}
+                    />
                 </Col>
                 <Col span={24}>
                     <Table
