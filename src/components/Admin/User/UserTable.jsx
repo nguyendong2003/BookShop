@@ -5,6 +5,8 @@ import { callDeleteUser, callFetchListUser } from '../../../services/api';
 import { CloudUploadOutlined, DeleteTwoTone, ExportOutlined, PlusOutlined, ReloadOutlined } from '@ant-design/icons';
 import UserModalCreate from './UserModalCreate';
 import UserViewDetail from './UserViewDetail';
+import moment from 'moment/moment';
+import { FORMAT_DATE_DISPLAY } from '../../../utils/constant';
 
 const UserTable = () => {
     const [listUser, setListUser] = useState([]);
@@ -69,6 +71,17 @@ const UserTable = () => {
             title: 'Số điện thoại',
             dataIndex: 'phone',
             sorter: true
+        },
+        {
+            title: 'Ngày cập nhật',
+            dataIndex: 'updatedAt',
+            sorter: true,
+            render: (text, record, index) => {
+                return (
+                    <>{moment(record.updatedAt).format(FORMAT_DATE_DISPLAY)}</>
+                )
+            }
+
         },
         {
             title: 'Action',
@@ -180,7 +193,12 @@ const UserTable = () => {
                                 current: current,
                                 pageSize: pageSize,
                                 showSizeChanger: true,
-                                total: total
+                                total: total,
+                                showTotal: (total, range) => (
+                                    <div>
+                                        {range[0]}-{range[1]} trên {total} rows
+                                    </div>
+                                )
                             }
                         }
                     />
@@ -189,6 +207,7 @@ const UserTable = () => {
             <UserModalCreate
                 openModalCreate={openModalCreate}
                 setOpenModalCreate={setOpenModalCreate}
+                fetchUser={fetchUser}
             />
 
             <UserViewDetail

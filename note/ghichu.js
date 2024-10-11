@@ -31,4 +31,12 @@
         http://localhost:8080/api/v1/user?current=1&pageSize=2&sort=-fullName
             => sort kết quả theo fullName (desc)
 
+
+
+    # Cách dùng Form bên trong Modal của Ant Design
+    - Trong Modal của UserModalCreate.jsx có sẵn nút submit tạo mới ở onOk
+    - Nhưng bên trong Modal đó lại có 1 Form
+     => Muốn Form đó có thể sử dụng nút submit của Modal thì cần phải sử dụng hook: Form.useForm()
+     => Khi submit form thì gọi: form.submit()
+
 */
