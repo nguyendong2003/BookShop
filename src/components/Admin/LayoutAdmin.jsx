@@ -130,9 +130,9 @@ const LayoutAdmin = () => {
                 <Content style={{ padding: '15px' }}>
                     <Outlet />
                 </Content>
-                <Footer style={{ padding: 0 }}>
+                {/* <Footer style={{ padding: 0 }}>
                     React Test Fresher &copy; M10 - Made with <HeartTwoTone />
-                </Footer>
+                </Footer> */}
             </Layout>
         </Layout>
     );

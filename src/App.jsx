@@ -113,7 +113,7 @@ export default function App() {
     <>
       {
         // Nếu đã xác thực hoặc đang ở trang login, register, home thì render router, ngược lại thì render loading
-        isLoading === true
+        isLoading === false
           || window.location.pathname === '/login'
           || window.location.pathname === '/register'
           || window.location.pathname === '/'
