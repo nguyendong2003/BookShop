@@ -39,4 +39,12 @@
      => Muốn Form đó có thể sử dụng nút submit của Modal thì cần phải sử dụng hook: Form.useForm()
      => Khi submit form thì gọi: form.submit()
 
+
+    # Thư viện đọc file xlsx, csv (SheetJS) để upload file thêm mới nhiều user:
+    - https://www.npmjs.com/package/xlsx
+    - Documentation: https://docs.sheetjs.com/docs/
+    - Search: 'react excel to json stackoverflow'
+        Ra được code mẫu:    https://stackoverflow.com/a/67564938
+
+
 */
