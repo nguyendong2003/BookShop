@@ -3,6 +3,7 @@ import { InboxOutlined } from '@ant-design/icons';
 import * as XLSX from 'xlsx';
 import { useState } from "react";
 import { callBulkCreateUser } from "../../../../services/api";
+import templateFile from './template-upload-user.xlsx?url';
 
 const { Dragger } = Upload;
 const UserImport = (props) => {
@@ -42,7 +43,9 @@ const UserImport = (props) => {
                         // const json = XLSX.utils.sheet_to_json(sheet);
                         const json = XLSX.utils.sheet_to_json(sheet, {
                             header: ["fullName", "email", "phone"],
-                            range: 1 //skip header row
+                            range: 1, // skip header row
+                            // raw: false, // keep text format
+                            // defval: '' // default value for empty cells
                         });
                         if (json && json.length > 0) setDataExcel(json)
                     }
@@ -105,7 +108,15 @@ const UserImport = (props) => {
                     </p>
                     <p className="ant-upload-text">Click or drag file to this area to upload</p>
                     <p className="ant-upload-hint">
-                        Support for a single upload. Only accept .csv, .xls, .xlsx
+                        Support for a single upload. Only accept .csv, .xls, .xlsx . or
+                        &nbsp;
+                        <a
+                            href={templateFile}
+                            onClick={e => e.stopPropagation()}  // khi không có dòng này thì khi bấm vào nút này sẽ hiện popup upload file của thằng cha
+                            download
+                        >
+                            Download Sample File
+                        </a>
                     </p>
                 </Dragger>
                 <div style={{ paddingTop: 20 }}>

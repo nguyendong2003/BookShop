@@ -46,5 +46,17 @@
     - Search: 'react excel to json stackoverflow'
         Ra được code mẫu:    https://stackoverflow.com/a/67564938
 
+    # Ngăn chặn sự kiện propagation khi bấm vào nút Download sample file ở chỗ Upload users file (Event bubbling):
+    - https://stackoverflow.com/a/23954430
+        Ví dụ:
+            <a
+                href={templateFile}
+                onClick={e => e.stopPropagation()}  // khi không có dòng này thì khi bấm vào nút này sẽ hiện popup upload file của thằng cha
+                download
+            >
+                Download Sample File
+            </a>
+    
+
 
 */
