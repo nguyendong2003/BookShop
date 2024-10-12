@@ -8,6 +8,7 @@ import UserViewDetail from './UserViewDetail';
 import moment from 'moment/moment';
 import { FORMAT_DATE_DISPLAY } from '../../../utils/constant';
 import UserImport from './data/UserImport';
+import * as XLSX from 'xlsx';
 
 const UserTable = () => {
     const [listUser, setListUser] = useState([]);
@@ -146,6 +147,7 @@ const UserTable = () => {
                     <Button
                         icon={<ExportOutlined />}
                         type="primary"
+                        onClick={() => handleExportData()}
                     >Export</Button>
 
                     <Button
@@ -174,6 +176,26 @@ const UserTable = () => {
 
     const handleSearch = (query) => {
         setFilter(query);
+    }
+
+    const handleExportData = () => {
+        // https://stackoverflow.com/questions/70871254/how-can-i-export-a-json-object-to-excel-using-nextjs-react
+        if (listUser.length > 0) {
+
+            // Chuyển đổi các giá trị số điện thoại thành chuỗi
+            const formattedListUser = listUser.map(user => ({
+                ...user,
+                phone: user.phone ?
+                    // `=CONCATENATE("0",${user.phone})`
+                    `=TEXT(${user.phone},"0##########")`
+                    : user.phone // Chuyển đổi số điện thoại thành chuỗi
+            }));
+
+            const worksheet = XLSX.utils.json_to_sheet(formattedListUser);
+            const workbook = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1");
+            XLSX.writeFile(workbook, "ExportUser.csv");
+        }
     }
 
     return (
