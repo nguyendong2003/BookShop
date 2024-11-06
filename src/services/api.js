@@ -5,7 +5,7 @@ export const callRegister = (fullName, email, password, phone) => {
 }
 
 export const callLogin = (username, password) => {
-    const delay = 3000      // delay 3s để test loading
+    const delay = 2000      // delay 2s để test loading
     return axios.post('/api/v1/auth/login', { username, password, delay })
 }
 
@@ -28,6 +28,10 @@ export const callCreateAUser = (fullName, password, email, phone) => {
 
 export const callBulkCreateUser = (data) => {
     return axios.post('/api/v1/user/bulk-create', data)
+}
+
+export const callUpdateUser = (_id, fullName, phone) => {
+    return axios.put('/api/v1/user', { _id, fullName, phone })
 }
 
 export const callDeleteUser = (id) => {

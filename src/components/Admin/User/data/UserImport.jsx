@@ -14,7 +14,7 @@ const UserImport = (props) => {
     const dummyRequest = ({ file, onSuccess }) => {
         setTimeout(() => {
             onSuccess("ok");
-        }, 1000);       // setTimeout 1 giây để tạo nút xoay xoay khi upload file (sau 2 giây mới upload thành công)
+        }, 1000);       // setTimeout 1 giây để tạo nút xoay xoay khi upload file (sau 1 giây mới upload thành công)
     };
 
     const propsUpload = {
