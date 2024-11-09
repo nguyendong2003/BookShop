@@ -108,8 +108,8 @@ const BookTable = () => {
                     <>
                         <Popconfirm
                             placement="leftTop"
-                            title={"Xác nhận xóa user"}
-                            description={"Bạn có chắc chắn muốn xóa user này ?"}
+                            title={"Xác nhận xóa book"}
+                            description={"Bạn có chắc chắn muốn xóa book này ?"}
                             onConfirm={() => handleDeleteBook(record._id)}
                             okText="Xác nhận"
                             cancelText="Hủy"
