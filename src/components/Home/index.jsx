@@ -65,11 +65,36 @@ const Home = () => {
     }
 
     const handleChangeFilter = (changedValues, values) => {
-        console.log(">>> check handleChangeFilter", changedValues, values)
+        // console.log(">>> check changedValues, values: ", changedValues, values)
+
+        //only fire if category changes
+        if (changedValues.category) {
+            const cate = values.category;
+            if (cate && cate.length > 0) {
+                const f = cate.join(',');
+                setFilter(`category=${f}`)
+            } else {
+                //reset data -> fetch all
+                setFilter('');
+            }
+        }
+
     }
 
+    // cú pháp docs query: https://www.npmjs.com/package/api-query-params
     const onFinish = (values) => {
+        // console.log('>> check values: ', values)
 
+        if (values?.range?.from >= 0 && values?.range?.to >= 0) {
+            let f = `price>=${values?.range?.from}&price<=${values?.range?.to}`;
+
+            // filter category dùng như câu lệnh IN trong sql (category=Arts,Business,Comics)
+            if (values?.category?.length) {
+                const cate = values?.category?.join(',');
+                f += `&category=${cate}`
+            }
+            setFilter(f);
+        }
     }
 
     const items = [
@@ -105,12 +130,20 @@ const Home = () => {
                                 <span> <FilterTwoTone />
                                     <span style={{ fontWeight: 500 }}> Bộ lọc tìm kiếm</span>
                                 </span>
-                                <ReloadOutlined title="Reset" onClick={() => form.resetFields()} />
+                                <ReloadOutlined title="Reset" onClick={() => {
+                                    form.resetFields();
+                                    setFilter('');
+                                }}
+                                />
                             </div>
                             <Divider />
                             <Form
                                 onFinish={onFinish}
                                 form={form}
+                                /*
+                                    changedValues: chỉ chứa giá trị thay đổi
+                                    values: chứa tất cả giá trị trong form
+                                */
                                 onValuesChange={(changedValues, values) => handleChangeFilter(changedValues, values)}
                             >
                                 <Form.Item
