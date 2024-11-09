@@ -65,8 +65,10 @@ export default function App() {
           path: "contact",
           element: <ContactPage />,
         },
+
+        // convert slug để tốt cho SEO (ví dụ: http://localhost:3000/book/cam-nang-du-lich-my?id=66dc23b285956daf724b935d) 
         {
-          path: "book",
+          path: "book/:slug",
           element: <BookPage />,
         },
       ],

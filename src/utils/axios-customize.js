@@ -59,8 +59,12 @@ instance.interceptors.response.use(function (response) {
         && +error.response.status === 400
         && error.config.url === '/api/v1/auth/refresh'  // khi thực hiện refresh token mà bị lỗi 400
     ) {
-        if (window.location.pathname !== '/')
-            window.location.href = '/login';        // chuyển hướng về trang login
+        if (
+            window.location.pathname !== '/'
+            && !window.location.pathname.startsWith('/book')
+        ) {
+            window.location.href = '/login';    // chuyển hướng về trang login
+        }
     }
 
     return error?.response?.data ?? Promise.reject(error);
