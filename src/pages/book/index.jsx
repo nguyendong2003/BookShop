@@ -1,4 +1,5 @@
 import { useLocation } from "react-router-dom";
+import ViewDetail from "../../components/Book/ViewDetail";
 
 const BookPage = () => {
     // https://reactrouter.com/en/main/start/concepts#locations
@@ -11,7 +12,7 @@ const BookPage = () => {
 
     return (
         <>
-            book page
+            <ViewDetail />
         </>
     )
 }
