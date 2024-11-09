@@ -39,14 +39,11 @@ const BookModalCreate = (props) => {
 
 
     const onFinish = async (values) => {
-        setIsSubmit(true)
-
         if (dataThumbnail.length === 0) {
             notification.error({
                 message: 'Lỗi validate',
                 description: 'Vui lòng upload ảnh thumbnail'
             })
-            setIsSubmit(false)
             return;
         }
 
@@ -55,7 +52,6 @@ const BookModalCreate = (props) => {
                 message: 'Lỗi validate',
                 description: 'Vui lòng upload ảnh slider'
             })
-            setIsSubmit(false)
             return;
         }
 
@@ -64,6 +60,7 @@ const BookModalCreate = (props) => {
         const thumbnail = dataThumbnail[0].name;
         const slider = dataSlider.map(item => item.name);
 
+        setIsSubmit(true)
         const res = await callCreateBook(thumbnail, slider, mainText, author, price, sold, quantity, category);
         if (res && res.data) {
             message.success('Tạo mới thành công');
@@ -284,7 +281,6 @@ const BookModalCreate = (props) => {
                                 name="thumbnail"
                             >
                                 <Upload
-                                    // name="thumbnail"
                                     listType="picture-card"
                                     className="avatar-uploader"
                                     maxCount={1}
