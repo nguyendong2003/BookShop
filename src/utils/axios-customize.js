@@ -1,4 +1,7 @@
 import axios from "axios";
+import { Mutex } from "async-mutex";
+
+const mutex = new Mutex();
 
 const baseUrl = import.meta.env.VITE_BACKEND_URL;
 
@@ -10,13 +13,27 @@ const instance = axios.create({
 instance.defaults.headers.common = { 'Authorization': `Bearer ${localStorage.getItem('access_token')}` }
 
 const handleRefreshToken = async () => {
-    const res = await instance.get('/api/v1/auth/refresh');
-    if (res && res.data) return res.data.access_token;
-    else null;
+    // const res = await instance.get('/api/v1/auth/refresh');
+    // if (res && res.data) return res.data.access_token;
+    // else null;
+
+
+    // Sử dụng mutex để tránh việc nhiều request cùng thời điểm gửi request refresh token (chỉ gửi 1 request refresh token, còn các request khác đợi cho đến khi request refresh token xong)
+    // (nếu không sử dụng mutex thì có thể sẽ gửi nhiều request với access token bị hết hạn --> sau đó mỗi request đó đều gọi refresh token cùng lúc)
+    // (nếu sử dụng mutex thì chỉ có 1 request gửi refresh token, còn các request khác đợi cho đến khi request refresh token xong)
+    return await mutex.runExclusive(async () => {
+        const res = await instance.get('/api/v1/auth/refresh');
+        if (res && res.data) return res.data.access_token;
+        else return null;
+    });
 }
 
 // Add a request interceptor
 instance.interceptors.request.use(function (config) {
+    // Mỗi lần gửi request thì kiểm tra xem có access token trong localStorage không, nếu có thì thêm vào header của request (để request được gửi với token mới nhất)
+    if (typeof window !== "undefined" && window && window.localStorage && window.localStorage.getItem('access_token')) {
+        config.headers.Authorization = 'Bearer ' + window.localStorage.getItem('access_token');
+    }
 
     return config;
 }, function (error) {

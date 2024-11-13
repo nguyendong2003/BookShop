@@ -1,5 +1,4 @@
 # React Vite (React Test Fresher)
-Template này được sử dụng cho series React Test Fresher
 - React 18
 - React Router 6
 - Redux Tookit
