@@ -6,7 +6,7 @@ export const callRegister = (fullName, email, password, phone) => {
 }
 
 export const callLogin = (username, password) => {
-    const delay = 2000      // delay 2s để test loading
+    const delay = 1000      // delay 1s để test loading
     return axios.post('/api/v1/auth/login', { username, password, delay })
 }
 
@@ -81,6 +81,13 @@ export const callUploadBookImg = (fileImg) => {
             "upload-type": "book"
         },
     });
+}
+
+// Order
+export const callPlaceOrder = (data) => {
+    return axios.post('/api/v1/order', {
+        ...data
+    })
 }
 
 
