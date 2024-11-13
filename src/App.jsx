@@ -28,10 +28,13 @@ import HistoryPage from './pages/history';
 import AdminOrderPage from './pages/admin/order';
 
 const Layout = () => {
+  const [searchTerm, setSearchTerm] = useState("");
+
   return (
     <div className='layout-app'>
-      <Header />
-      <Outlet />
+      <Header searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+      {/* Truyền state vào outlet */}
+      <Outlet context={[searchTerm, setSearchTerm]} />
       <Footer />
     </div>
   )
@@ -77,11 +80,17 @@ export default function App() {
         },
         {
           path: "order",
-          element: <OrderPage />,
+          element:
+            <ProtectedRoute>
+              <OrderPage />
+            </ProtectedRoute>
         },
         {
           path: "history",
-          element: <HistoryPage />,
+          element:
+            <ProtectedRoute>
+              <HistoryPage />
+            </ProtectedRoute>
         },
       ],
     },

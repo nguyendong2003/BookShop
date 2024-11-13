@@ -1,12 +1,14 @@
 import { FilterTwoTone, ReloadOutlined } from '@ant-design/icons';
 import { Row, Col, Form, Checkbox, Divider, InputNumber, Button, Rate, Tabs, Pagination, Spin } from 'antd';
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useOutletContext } from 'react-router-dom';
 import { callFetchCategory, callFetchListBook } from '../../services/api';
 import './home.scss';
 import MobileFilter from './MobileFilter';
 
 const Home = () => {
+    // tìm kiếm sách (lấy state trong context từ Layout ở file App.jsx)
+    const [searchTerm, setSearchTerm] = useOutletContext()
 
     const [listCategory, setListCategory] = useState([]);
 
@@ -39,7 +41,7 @@ const Home = () => {
 
     useEffect(() => {
         fetchBook();
-    }, [current, pageSize, filter, sortQuery]);
+    }, [current, pageSize, filter, sortQuery, searchTerm]);
 
     const fetchBook = async () => {
         setIsLoading(true)
@@ -49,6 +51,10 @@ const Home = () => {
         }
         if (sortQuery) {
             query += `&${sortQuery}`;
+        }
+
+        if (searchTerm) {
+            query += `&mainText=/${searchTerm}/i`
         }
 
         const res = await callFetchListBook(query);
@@ -187,6 +193,7 @@ const Home = () => {
                                 <ReloadOutlined title="Reset" onClick={() => {
                                     form.resetFields();
                                     setFilter('');
+                                    setSearchTerm('');
                                 }}
                                 />
                             </div>

@@ -189,6 +189,7 @@ const UserTable = () => {
     }
 
     const handleSearch = (query) => {
+        setCurrent(1);
         setFilter(query);
     }
 
