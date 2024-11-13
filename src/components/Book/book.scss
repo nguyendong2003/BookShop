@@ -7,6 +7,10 @@
         cursor: pointer;
     }
 
+    .image-gallery-image {
+        max-height: calc(100vh - 300px) !important;
+    }
+
     .title {
         margin: 5px 0;
         color: #242424;

@@ -8,6 +8,7 @@ import { BsCartPlus } from 'react-icons/bs';
 import BookLoader from './BookLoader';
 import { useDispatch } from 'react-redux';
 import { doAddBookAction } from '../../redux/order/orderSlice'
+import { useNavigate } from 'react-router-dom';
 
 const ViewDetail = (props) => {
     const { dataBook } = props;
@@ -19,6 +20,7 @@ const ViewDetail = (props) => {
     const images = dataBook?.items ?? [];
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const handleOnClickImage = () => {
         //get current index onClick
@@ -50,6 +52,11 @@ const ViewDetail = (props) => {
 
     const handleAddToCart = (quantity, book) => {
         dispatch(doAddBookAction({ quantity, detail: book, _id: book._id }))
+    }
+
+    const handleBuyNow = (quantity, book) => {
+        dispatch(doAddBookAction({ quantity, detail: book, _id: book._id }))
+        navigate('/order');
     }
 
     return (
@@ -115,7 +122,10 @@ const ViewDetail = (props) => {
                                             <BsCartPlus className='icon-cart' />
                                             <span>Thêm vào giỏ hàng</span>
                                         </button>
-                                        <button className='now'>Mua ngay</button>
+                                        <button
+                                            className='now'
+                                            onClick={() => handleBuyNow(currentQuantity, dataBook)}
+                                        >Mua ngay</button>
                                     </div>
                                 </Col>
                             </Col>
