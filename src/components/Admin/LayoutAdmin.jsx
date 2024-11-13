@@ -36,11 +36,6 @@ const items = [
                 key: 'crud',
                 icon: <TeamOutlined />,
             },
-            {
-                label: 'Files1',
-                key: 'file1',
-                icon: <TeamOutlined />,
-            }
         ]
     },
     {

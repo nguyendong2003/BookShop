@@ -25,6 +25,7 @@ import ManageUserPage from './pages/admin/user';
 import ManageBookPage from './pages/admin/book';
 import OrderPage from './pages/order';
 import HistoryPage from './pages/history';
+import AdminOrderPage from './pages/admin/order';
 
 const Layout = () => {
   return (
@@ -109,6 +110,14 @@ export default function App() {
             <ProtectedRoute>
               <ManageBookPage />
             </ProtectedRoute>
+        },
+        {
+          path: "order",
+          element:
+            <ProtectedRoute>
+              <AdminOrderPage />
+            </ProtectedRoute>
+          ,
         },
       ],
     },

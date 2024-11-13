@@ -120,5 +120,13 @@ export const callOrderHistory = () => {
     return axios.get('/api/v1/history');
 }
 
+export const callFetchDashboard = () => {
+    return axios.get('/api/v1/database/dashboard')
+}
+
+export const callFetchListOrder = (query) => {
+    return axios.get(`/api/v1/order?${query}`)
+}
+
 
 
