@@ -16,7 +16,7 @@ https://nodejs.org/download/release/v16.13.1/
 
 - Steps to run in Production mode:
 1. Clone the repository.
-2. Install dependencies: npm install.
+2. Install dependencies: npm install
 3. Update the .env.production file (if necessary).
 4. Build the project: npm run build.
 5. Run the project: npm run preview.
